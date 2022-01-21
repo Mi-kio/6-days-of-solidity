@@ -181,3 +181,61 @@ SHORTHAND
 people.push(Person(20, "SAKSHI"));
 ```
 
+### Chapter 8: Private / Public Functions
+
+In Solidity, functions are public by default. This means anyone (or any other contract) can call your contract's function and execute its code. As in lanugages like cpp and Java, we have access specifiers, public private protected, here we are introduced with public and private in solidity. Public functions can be called anywhere in the prgram, but private function can't be called, and are good for keeping data safe from attacks.
+
+But we can mark functions as private by default, and then only make public the functions you want to expose to the world.
+
+Syntax - 
+
+```
+//All we have to do is replace public keyword by private
+uint[] numbers;   // variable of uint datatype
+
+function _addToArray(uint _number) private {
+  numbers.push(_number);      //pusing the parameter's value in numbers[]
+}
+```
+
+### Chapter 10: More on Functions (return values)
+
+Syntax-
+```
+string greeting = "What's up dog";
+
+function sayHello() public returns (string memory) {
+  return greeting;  // return type of greeting is string
+}
+```
+The above function doesn't actually change state in Solidity — e.g. it doesn't change any values or write anything. (Only returns values)
+
+So we could declare it as a **view function**, meaning **it's only viewing the data but not modifying it**
+
+```
+function sayHello() public view returns (string memory) {
+```
+
+Solidity also contains **pure functions**, which means you're not even accessing any data in the app. Consider the following:
+```
+function _multiply(uint a, uint b) private pure returns (uint) {
+  return a * b;
+}
+```
+This function doesn't even read from the state of the app — its return value depends only on its function parameters. So in this case we would declare the function as pure.
+
+***In solididity we are defining the type of value func will return in its signature only***. In other languages we have a return type for function, but here we have to declare function with 'function' keyword only, and specify return type separately.
+
+### Chapter 11: Keccak256 and Typecasting
+
+Ethereum has the hash function **keccak256** built in, which is **a version of [SHA3](https://infosecwriteups.com/breaking-down-sha-3-algorithm-70fe25e125b6)**. A hash function basically maps an input into a random 256-bit hexadecimal number. A slight change in the input will cause a large change in the hash.
+
+
+
+
+
+
+
+
+
+
