@@ -230,6 +230,52 @@ This function doesn't even read from the state of the app — its return value d
 
 Ethereum has the hash function **keccak256** built in, which is **a version of [SHA3](https://infosecwriteups.com/breaking-down-sha-3-algorithm-70fe25e125b6)**. A hash function basically maps an input into a random 256-bit hexadecimal number. A slight change in the input will cause a large change in the hash.
 
+####  keccak256 expects a single parameter of type bytes. This means that we have to "pack" any parameters before calling keccak256
+
+```
+//6e91ec6b618bb462a4a6ee5aa2cb0e9cf30f7a052bb467b0ba58b8748c00d2e5
+keccak256(abi.encodePacked("aaaab"));
+```
+
+As in other languages we do type casting, in solidity also, we need to cast a type into another sometimes, and this can be done without getting an error
+Typecasting
+```
+uint8 a = 5;
+uint b = 6;
+// throws an error because a * b returns a uint, not uint8:
+uint8 c = a * b;
+// we have to typecast b as a uint8 to make it work:
+uint8 c = a * uint8(b);
+```
+
+### Chapter 12: Events 
+
+Events are a way for your contract to **communicate that something happened on the blockchain to your app front-end, which can be 'listening' for certain events and take action when they happen**.
+
+Can say, its for interaction with front-end? Like our JS code does?!
+
+```
+// declare the event - it is declared before firing
+event IntegersAdded(uint x, uint y, uint result);
+
+function add(uint _x, uint _y) public returns (uint) {
+  uint result = _x + _y;
+  // fire an event to let the app know the function was called:
+  emit IntegersAdded(_x, _y, result);
+  return result;
+}
+
+```
+
+JS Implementation
+```
+//A javascript implementation would look something like:
+
+YourContract.IntegersAdded(function(error, result) {
+})
+```
+
+
 
 
 
