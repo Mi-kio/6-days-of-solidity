@@ -275,6 +275,11 @@ YourContract.IntegersAdded(function(error, result) {
 })
 ```
 
+## Chapter 14 - Web3.js - (javascript frontend that interacts with the contract)
+
+#### Ethereum has a Javascript library called Web3.js.
+
+
 
 
 
