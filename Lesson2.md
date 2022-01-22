@@ -54,7 +54,7 @@ function whatIsMyNumber() public view returns (uint) {
 ```
 Using msg.sender gives you the security of the Ethereum blockchain — the only way someone can modify someone else's data would be to steal the private key associated with their Ethereum address.
 
-**msg.sender contains the address that has originated the call while tx.origin contains the originator of the transaction.**
+**msg.sender contains the address that has originated the call while tx.origin contains the originator of the transaction.** To know more about [msg.sender](https://stackoverflow.com/questions/70799103/what-is-the-use-of-msg-sender-in-solidity)
 
 According to an answer on stackoverflow,
 msg.sender will be the person who's currently connecting with the contract.
@@ -151,5 +151,50 @@ In addition to public and private, Solidity has two more types of visibility for
 **internal is the same as private, except that it's also accessible to contracts that inherit from this contract.**
 
 **external is similar to public, except that these functions can ONLY be called outside the contract — they can't be called by other functions inside that contract.**
+
+## Interacting with other contracts
+
+For our contract to talk to another contract on the blockchain that we don't own, first we need to define an interface. 
+
+```
+contract LuckyNumber {
+  mapping(address => uint) numbers;
+
+  function setNum(uint _num) public {
+    numbers[msg.sender] = _num;
+  }
+
+  function getNum(address _myAddress) public view returns (uint) {
+    return numbers[_myAddress];
+  }
+}
+
+//interace
+
+contract NumberInterface {
+  function getNum(address _myAddress) public view returns (uint);
+}
+```
+How compiler knows that this is interface? - We are ending our function with semicolon and has no body, looks like normal contract but the function is different. We have also not declared any variables for this function.
+
+By including this interface in our dapp's code our contract knows what the other contract's functions look like, how to call them, and what sort of response to expect.
+
+look at this function definition, it returns values of more than one type unlike cpp and java
+```
+function getKitty(uint256 _id) external view returns (
+    bool isGestating,
+    bool isReady,
+    uint256 cooldownIndex,
+    uint256 nextActionAt,
+    uint256 siringWithId,
+    uint256 birthTime,
+    uint256 matronId,
+    uint256 sireId,
+    uint256 generation,
+    uint256 genes
+) {
+    Kitty storage kit = kitties[_id]; .....
+```
+
 
 
